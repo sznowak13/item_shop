@@ -46,10 +46,12 @@ def sum_items(cart, stock):
 
 choosing = True
 customer_cart = {}
+print("\033c")
 
 while choosing:
     print("Enter an item to add to your cart. To see your cart type 'show cart', to see the stock type 'show stock', to exit type 'exit'.")
     pick = input(">> ")
+    print("\033c")
     if pick == "exit":
         choosing = False
     elif pick == "show cart":
