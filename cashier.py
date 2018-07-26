@@ -55,7 +55,9 @@ customer_cart = {}
 #wypierdoliłem to przed pętle bo mnie wkurwiało za każdym razem wyskakiwanie tego
 #i sformatowałem to ładniej.
 print("""
-Enter an item to add to your cart.
+Enter an item that you want to add to your cart.
+You can also type in a quantity of that item separated by space,
+if you want to add more than one, e.g.: 'Tomato 3' adds 3 tomatoes.
 To see your cart - type 'show cart'.
 To see the stock - type 'show stock'.
 To exit - type 'exit'.""")
@@ -85,7 +87,7 @@ while choosing:
         elif status == 'Available' and quantity > current_stock[pick]:
             print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick, current_stock[pick]))
             decision = input(">>")
-            if decision == 'y':
+            if decision.lower() == 'y':
                 customer_cart = add_to_cart(customer_cart, pick, current_stock[pick])
                 current_stock = remove_from_stock(pick, current_stock, current_stock[pick])
                 print("Items added.")
