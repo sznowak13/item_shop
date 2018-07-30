@@ -54,13 +54,16 @@ choosing = True
 customer_cart = {}
 #wypierdoliłem to przed pętle bo mnie wkurwiało za każdym razem wyskakiwanie tego
 #i sformatowałem to ładniej.
-print("""
+help_note = """
 Enter an item that you want to add to your cart.
 You can also type in a quantity of that item separated by space,
 if you want to add more than one, e.g.: 'Tomato 3' adds 3 tomatoes.
 To see your cart - type 'show cart'.
 To see the stock - type 'show stock'.
-To exit - type 'exit'.""")
+To exit - type 'exit'.
+To see this message - type 'help'.
+"""
+print(help_note)
 
 while choosing:
     pick = input(">> ")
@@ -68,6 +71,8 @@ while choosing:
     print("\033c")
     if pick == "exit":
         choosing = False
+    elif pick == "help":
+        print(help_note)
     elif pick == "show cart":
         show_cart_and_value(customer_cart)
     elif pick == "show stock":
