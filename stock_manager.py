@@ -7,9 +7,9 @@ print("""
 Hi! Welcome to Stock Manager. What do you wanna do? Add something to the stock? Okey-dokey!
 """)
 if len(records) < 9:
-    id = "0" + str(len(records))
+    id = "0" + str(len(records) + 1)
 else:
-    id = str(len(records))
+    id = str(len(records) + 1)
 name = input("Product name: ")
 quantity = input("Quantity: ")
 value = input("Value: ")
