@@ -57,6 +57,8 @@ while choosing:
         try:
             quantity = int(command[1])
         except:
+            command = "Unknown"
+        if command == "Unknown" or quantity <= 0:
             print("something went wrong :/ type again")
             continue
         print(buy(pick, quantity))
