@@ -1,4 +1,10 @@
-def show_cart_and_value(cart, values):
+item_values = {
+    'Food': 5,
+    'Drink': 2,
+    'Fags': 10
+}
+
+def show_cart_and_value(cart, values = item_values):
     for item, amount in cart.items():
         print("{}: {}".format(item, amount))
     print("\nValue: {} zł".format(sum_items(cart, values)))
@@ -32,8 +38,8 @@ def remove_from_stock(item, stock, quantity = 1):
     stock[item] -= quantity
     return stock
 
-def sum_items(cart, stock):
+def sum_items(cart, values = item_values):
     item_sum = 0
     for item, amount in cart.items():
-        item_sum += amount * stock[item]
+        item_sum += amount * values[item]
     return item_sum
