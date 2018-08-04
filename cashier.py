@@ -1,11 +1,9 @@
 import cashing
 import data_processing as data
 
-records = open("./data/stock.csv").readlines()
-
-current_stock = data.read_stock(records)
-
-file.close()
+with open("./data/stock.csv") as f:
+    records = f.readlines()
+    current_stock = data.read_stock(records)
 
 customer_cart = {}
 
@@ -16,7 +14,7 @@ def buy(pick, quantity = 1, stock = current_stock, cart = customer_cart):
         cashing.remove_from_stock(pick, stock, quantity)
         return "Item(s) added."
     elif status == 'Available' and quantity > stock[pick]:
-        print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick, stock[pick]))
+        print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick.title(), stock[pick]))
         decision = input(">>")
         if decision.lower() == 'y':
             cashing.add_to_cart(cart, pick, stock[pick])
