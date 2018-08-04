@@ -13,20 +13,20 @@ def buy(pick, quantity = 1, stock = current_stock, cart = customer_cart):
     if status == 'Available' and quantity <= stock[pick]:
         cashing.add_to_cart(cart, pick, quantity)
         cashing.remove_from_stock(pick, stock, quantity)
-        print("Item(s) added.")
+        return "Item(s) added."
     elif status == 'Available' and quantity > stock[pick]:
         print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick, stock[pick]))
         decision = input(">>")
         if decision.lower() == 'y':
             cashing.add_to_cart(cart, pick, stock[pick])
             cashing.remove_from_stock(pick, stock, stock[pick])
-            print("Items added.")
+            return "Items added."
         else:
-            print('kthxbai')
+            return 'kthxbai'
     elif status == "No More":
-        print("We ran out of that item.")
+        return "We ran out of that item."
     else:
-        print("We dont have that item.")
+        return "We dont have that item."
 
 def print_help():
     print("""
@@ -51,7 +51,6 @@ while choosing:
         cashing.show_cart_and_value(customer_cart)
     elif pick == "show stock":
         cashing.show_stock(current_stock)
-    #tutej implementacja kupowania paru sztuk na raz
     elif ' ' in pick:
         command = pick.split(' ')
         pick = command[0]
@@ -60,9 +59,9 @@ while choosing:
         except:
             print("something went wrong :/ type again")
             continue
-        buy(pick, quantity)
+        print(buy(pick, quantity))
     else:
-        buy(pick)
+        print(buy(pick))
 
 
 print("Total amount to pay is:")
