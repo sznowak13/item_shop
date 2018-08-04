@@ -6,6 +6,28 @@ current_stock = {
     'Fags': 1
 }
 
+customer_cart = {}
+
+def buy(pick, quantity = 1, stock = current_stock, cart = customer_cart):
+    status = cashing.check_availability(pick, stock)
+    if status == 'Available' and quantity <= stock[pick]:
+        customer_cart = cashing.add_to_cart(cart, pick, quantity)
+        current_stock = cashing.remove_from_stock(pick, stock, quantity)
+        print("Item(s) added.")
+    elif status == 'Available' and quantity > stock[pick]:
+        print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick, stock[pick]))
+        decision = input(">>")
+        if decision.lower() == 'y':
+            customer_cart = cashing.add_to_cart(cart, pick, stock[pick])
+            current_stock = cashing.remove_from_stock(pick, stock, stock[pick])
+            print("Items added.")
+        else:
+            print('kthxbai')
+    elif status == "No More":
+        print("We ran out of that item.")
+    else:
+        print("We dont have that item.")
+
 def print_help():
     print("""
 Enter an item that you want to add to your cart.
@@ -17,7 +39,6 @@ To see this message again - type 'help'.
 To exit - type 'exit'.""")
 
 choosing = True
-customer_cart = {}
 print_help()
 
 while choosing:
@@ -39,38 +60,9 @@ while choosing:
         except:
             print("something went wrong :/ type again")
             continue
-        status = cashing.check_availability(pick, current_stock)
-        #paczej kurwa jak szprytnie, nawet sprawdza czy ma tyle na stanie
-        if status == 'Available' and quantity <= current_stock[pick]:
-            customer_cart = cashing.add_to_cart(customer_cart, pick, quantity)
-            current_stock = cashing.remove_from_stock(pick, current_stock, quantity)
-            print("Item(s) added.")
-        #a jak nie ma to pyta czy starczy tyle co ma
-        elif status == 'Available' and quantity > current_stock[pick]:
-            print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick, current_stock[pick]))
-            decision = input(">>")
-            if decision.lower() == 'y':
-                customer_cart = cashing.add_to_cart(customer_cart, pick, current_stock[pick])
-                current_stock = cashing.remove_from_stock(pick, current_stock, current_stock[pick])
-                print("Items added.")
-            else:
-                print('kthxbai')
-                continue
-        elif status == "No More":
-            print("We ran out of that item.")
-        else:
-            print("We dont have that item.")
-    #kuniec implementacji
+        buy(pick, quantity)
     else:
-        status = cashing.check_availability(pick, current_stock)
-        if status == 'Available':
-            customer_cart = cashing.add_to_cart(customer_cart, pick)
-            current_stock = cashing.remove_from_stock(pick, current_stock)
-            print("Item added.")
-        elif status == "No More":
-            print("We ran out of that item.")
-        else:
-            print("We dont have that item.")
+        buy(pick)
 
 
 print("Total amount to pay is:")
