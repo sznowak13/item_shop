@@ -6,23 +6,26 @@ current_stock = {
     'Fags': 1
 }
 
-choosing = True
-customer_cart = {}
-#wypierdoliłem to przed pętle bo mnie wkurwiało za każdym razem wyskakiwanie tego
-#i sformatowałem to ładniej.
-print("""
+def print_help():
+    print("""
 Enter an item that you want to add to your cart.
 You can also type in a quantity of that item separated by space,
 if you want to add more than one, e.g.: 'Tomato 3' adds 3 tomatoes.
 To see your cart - type 'show cart'.
 To see the stock - type 'show stock'.
+To see this message again - type 'help'.
 To exit - type 'exit'.""")
+
+choosing = True
+customer_cart = {}
+print_help()
 
 while choosing:
     pick = input(">> ")
-    #na chuj Ci ten chujwie jaki escape
     if pick == "exit":
         choosing = False
+    elif pick == "help":
+        print_help()
     elif pick == "show cart":
         cashing.show_cart_and_value(customer_cart)
     elif pick == "show stock":
@@ -31,7 +34,11 @@ while choosing:
     elif ' ' in pick:
         command = pick.split(' ')
         pick = command[0]
-        quantity = int(command[1])
+        try:
+            quantity = int(command[1])
+        except:
+            print("something went wrong :/ type again")
+            continue
         status = cashing.check_availability(pick, current_stock)
         #paczej kurwa jak szprytnie, nawet sprawdza czy ma tyle na stanie
         if status == 'Available' and quantity <= current_stock[pick]:
