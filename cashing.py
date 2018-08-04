@@ -1,7 +1,6 @@
 import data_processing as data
 
-file = open("./data/stock.csv")
-records = file.readlines()
+records = open("./data/stock.csv").readlines()
 
 item_values = data.read_values(records)
 
