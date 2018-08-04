@@ -1,10 +1,5 @@
 import cashing
 
-item_values = {
-    'Food': 5,
-    'Drink': 2,
-    'Fags': 10
-}
 current_stock = {
     'Food': 3,
     'Drink': 10,
@@ -29,7 +24,7 @@ while choosing:
     if pick == "exit":
         choosing = False
     elif pick == "show cart":
-        cashing.show_cart_and_value(customer_cart, item_values)
+        cashing.show_cart_and_value(customer_cart)
     elif pick == "show stock":
         cashing.show_stock(current_stock)
     #tutej implementacja kupowania paru sztuk na raz
@@ -72,4 +67,4 @@ while choosing:
 
 
 print("Total amount to pay is:")
-print("{} zł".format(cashing.sum_items(customer_cart, item_values)))
+print("{} zł".format(cashing.sum_items(customer_cart)))
