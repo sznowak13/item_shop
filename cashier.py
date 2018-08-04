@@ -1,10 +1,12 @@
 import cashing
+import data_processing as data
 
-current_stock = {
-    'Food': 3,
-    'Drink': 10,
-    'Fags': 1
-}
+file = open("./data/stock.csv")
+records = file.readlines()
+
+current_stock = data.read_stock(records)
+
+file.close()
 
 customer_cart = {}
 
@@ -61,9 +63,9 @@ while choosing:
         if command == "Unknown" or quantity <= 0:
             print("something went wrong :/ type again")
             continue
-        print(buy(pick, quantity))
+        print(buy(pick.upper(), quantity))
     else:
-        print(buy(pick))
+        print(buy(pick.upper()))
 
 
 print("Total amount to pay is:")

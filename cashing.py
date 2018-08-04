@@ -1,12 +1,15 @@
-item_values = {
-    'Food': 5,
-    'Drink': 2,
-    'Fags': 10
-}
+import data_processing as data
+
+file = open("./data/stock.csv")
+records = file.readlines()
+
+item_values = data.read_values(records)
+
+file.close()
 
 def show_cart_and_value(cart, values = item_values):
     for item, amount in cart.items():
-        print("{}: {}".format(item, amount))
+        print("{}: {}".format(item.title(), amount))
     print("\nValue: {} zł".format(sum_items(cart, values)))
 
 def show_stock(stock):
@@ -14,7 +17,7 @@ def show_stock(stock):
     for item, amount in stock.items():
         if amount:
             items_available += 1
-            print("{}: {}".format(item, amount))
+            print("{}: {}".format(item.title(), amount))
     if not items_available:
         print("Empty stock ;___;")
 
