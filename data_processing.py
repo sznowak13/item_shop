@@ -60,7 +60,7 @@ def show(path = stock_path):
         records = f.readlines()
         print("ID || NAME || QUANTITY || VALUE")
         for i in range(len(records)):
-            record = read_record(i)
+            record = read_record(i + 1)
             # making name look fancy
             record["NAME"] = record["NAME"].title()
             print(*record.values())
