@@ -9,7 +9,7 @@ usr_inpt = input("# ")
 while True:
     if usr_inpt.lower() in ['quit', 'exit', 'q']:
         print("Goodbye!")
-        break;
+        break
     elif usr_inpt.lower() == "add":
         name = input("Product name: ")
         quantity = input("Quantity: ")
