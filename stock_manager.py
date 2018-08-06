@@ -1,22 +1,16 @@
 import data_processing as data
 
-file = open("./data/stock.csv", "r+")
-records = file.readlines()
-
 print("""
-Hi! Welcome to Stock Manager. What do you wanna do? Add something to the stock? Okey-dokey!
+Hi! Welcome to Stock Manager. What do you wanna do?
 """)
-if len(records) < 9:
-    id = "0" + str(len(records) + 1)
-else:
-    id = str(len(records) + 1)
-name = input("Product name: ")
-quantity = input("Quantity: ")
-value = input("Value: ")
+usr_inpt = input("# ")
 
-record = [id, name.upper(), quantity, value, "\n"]
-file.write(",".join(record))
-
-print("Done, thanks!")
-
-file.close()
+while True:
+    if usr_inpt.lower() in ['quit', 'exit', 'q']:
+        print("Goodbye!")
+        break;
+    elif usr_inpt.lower() == "add":
+        data.add_item()
+    else:
+        print("Unknown command '{}', try again.".format(usr_inpt))
+    usr_inpt = input("# ")
