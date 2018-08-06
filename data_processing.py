@@ -37,4 +37,13 @@ def edit_item(path = stock_path):
     return None
 
 def show(path = stock_path):
-    return None
+    with open(path, "r+") as f:
+        records = f.readlines()
+        print("ID || NAME || QUANTITY || VALUE")
+        for i in range(len(records)):
+            values = records[i].split(',')
+            # getting rid of '\n' at the and of every record
+            values.pop()
+            # making name look fancy
+            values[1] = values[1].title()
+            print(*values)
