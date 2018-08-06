@@ -19,7 +19,7 @@ while True:
     elif usr_inpt.lower() == "remove":
         id = input("Type the product's ID: ")
         item = data.read_record(id)
-        decision = input("Are you sure you want to remove {} from stock? ".format(item[1].title()))
+        decision = input("Are you sure you want to remove {} from stock? ".format(item["NAME"].title()))
         if decision.lower() in ['yes', 'y']:
             data.remove_item(id)
             print("Item removed.")

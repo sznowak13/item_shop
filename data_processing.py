@@ -3,7 +3,13 @@ stock_path = "./data/stock.csv"
 def read_record(id, path = stock_path):
     with open(path) as f:
         records = f.readlines()
-        return records[int(id) - 1].split(',')
+        output = {}
+        record = records[int(id) - 1].split(',')
+        output["ID"] = record[0]
+        output["NAME"] = record[1]
+        output["QUANTITY"] = record[2]
+        output["VALUE"] = record[3]
+        return output
 
 def read_stock(path = stock_path):
     with open(path) as f:
@@ -54,9 +60,7 @@ def show(path = stock_path):
         records = f.readlines()
         print("ID || NAME || QUANTITY || VALUE")
         for i in range(len(records)):
-            values = records[i].split(',')
-            # getting rid of '\n' at the and of every record
-            values.pop()
+            record = read_record(i)
             # making name look fancy
-            values[1] = values[1].title()
-            print(*values)
+            record["NAME"] = record["NAME"].title()
+            print(*record.values())
