@@ -1,5 +1,10 @@
 stock_path = "./data/stock.csv"
 
+def read_record(id, path = stock_path):
+    with open(path) as f:
+        records = f.readlines()
+        return records[int(id) - 1].split(',')
+
 def read_stock(path = stock_path):
     with open(path) as f:
         records = f.readlines()
@@ -30,8 +35,16 @@ def add_item(name, quantity, value, path = stock_path):
         record = [id, name.upper(), quantity, value, "\n"]
         f.write(",".join(record))
 
-def remove_item(path = stock_path):
-    return None
+def remove_item(id, path = stock_path):
+    with open(path, "r+") as f:
+        records = f.readlines()
+        records.pop(int(id) - 1)
+
+        f.seek(0)
+        f.truncate()
+
+        for record in records:
+            f.write(record)
 
 def edit_item(path = stock_path):
     return None

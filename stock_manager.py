@@ -1,8 +1,9 @@
 import data_processing as data
 
-print("""
-Hi! Welcome to Stock Manager. What do you wanna do?
-""")
+def print_help():
+    print("Command list:\n-Add\n-Remove (DANGEROUS! IN PROGRESS!)\n-Edit (NOT AVAILABLE)\n-Show (IN PROGRESS)\n-Help\n-Quit")
+
+print("Hi! Welcome to Stock Manager. What do you wanna do?")
 usr_inpt = input("# ")
 
 while True:
@@ -16,11 +17,20 @@ while True:
         data.add_item(name, quantity, value)
         print("{} {} added!".format(quantity, name))
     elif usr_inpt.lower() == "remove":
-        data.remove_item() # TO DO
+        id = input("Type the product's ID: ")
+        item = data.read_record(id)
+        decision = input("Are you sure you want to remove {} from stock? ".format(item[1].title()))
+        if decision.lower() in ['yes', 'y']:
+            data.remove_item(id)
+            print("Item removed.")
+        else:
+            print("Oof, that was close.")
     elif usr_inpt.lower() == "edit":
         data.edit_item() # TO DO
     elif usr_inpt.lower() == "show":
-        data.show() # TO DO
+        data.show()
+    elif usr_inpt.lower() == "help":
+        print_help()
     else:
         print("Unknown command '{}', try again.".format(usr_inpt))
     usr_inpt = input("# ")
