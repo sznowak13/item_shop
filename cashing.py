@@ -1,8 +1,7 @@
 import data_processing as data
 
-with open("./data/stock.csv") as f:
-    records = f.readlines()
-    item_values = data.read_values(records)
+
+item_values = data.read_values()
 
 def show_cart_and_value(cart, values = item_values):
     for item, amount in cart.items():

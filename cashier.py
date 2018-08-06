@@ -1,9 +1,7 @@
 import cashing
 import data_processing as data
 
-with open("./data/stock.csv") as f:
-    records = f.readlines()
-    current_stock = data.read_stock(records)
+current_stock = data.read_stock()
 
 customer_cart = {}
 
