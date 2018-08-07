@@ -11,11 +11,18 @@ while True:
         print("Goodbye!")
         break
     elif usr_inpt.lower() == "add":
-        name = input("Product name: ")
-        quantity = input("Quantity: ")
-        value = input("Value: ")
-        data.add_item(name, quantity, value)
-        print("{} {} added!".format(quantity, name))
+        values = []
+        max_id = int(data.read_record(0)["ID"]) # reads the maximal ID so far
+        if max_id < 9:
+            values.append("0" + str(max_id + 1))
+        else:
+            values.append(str(max_id + 1))
+        values.append(input("Product name: ").upper())
+        values.append(input("Quantity: "))
+        values.append(input("Value: "))
+        item_dict = {title: values[data.FIELDNAMES.index(title)] for title in data.FIELDNAMES}
+        data.add_item(item_dict)
+        print("{} {} added!".format(values[2], values[1].title()))
     elif usr_inpt.lower() == "remove":
         item_id = input("Type the product's ID: ")
         item = data.read_record(item_id)
