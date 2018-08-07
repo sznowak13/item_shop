@@ -13,7 +13,7 @@ def buy(pick, quantity = 1, stock = current_stock, cart = customer_cart):
         return "Item(s) added."
     elif status == 'Available' and quantity > stock[pick]:
         print("Unfortunately, we don't have that much {}, but we can add the remaining {} to your cart. Kk? (y/n)".format(pick.title(), stock[pick]))
-        decision = input(">>")
+        decision = input(">> ")
         if decision.lower() == 'y':
             cashing.add_to_cart(cart, pick, stock[pick])
             cashing.remove_from_stock(pick, stock, stock[pick])
