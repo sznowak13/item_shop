@@ -1,16 +1,11 @@
-import csv
+import csv, ui
 STOCK_PATH = "./data/stock.csv"
 
 def read_record(item_id, path = STOCK_PATH):
     with open(path) as f:
-        records = f.readlines()
-        output = {}
-        record = records[int(item_id) - 1].split(',')
-        output["ID"] = record[0]
-        output["NAME"] = record[1]
-        output["QUANTITY"] = record[2]
-        output["VALUE"] = record[3]
-        return output
+        records = csv.DictReader(f)
+        records_list = [record for record in records]
+        return records_list[int(item_id) - 1]
 
 def read_stock(path = STOCK_PATH):
     with open(path) as f:
@@ -39,7 +34,7 @@ def add_item(name, quantity, value, path = STOCK_PATH):
         else:
             item_id = str(len(records) + 1)
 
-        record = [item_id, name.upper(), quantity, value, "\n"]
+        record = [item_id, name.upper(), quantity, value]
         f.write(",".join(record))
 
 def remove_item(item_id, path = STOCK_PATH):
@@ -58,10 +53,10 @@ def edit_item(path = STOCK_PATH):
 
 def show(path = STOCK_PATH):
     with open(path, "r+") as f:
-        records = f.readlines()
-        print("ID || NAME || QUANTITY || VALUE")
-        for i in range(len(records)):
-            record = read_record(i + 1)
-            # making name look fancy
-            record["NAME"] = record["NAME"].title()
-            print(*record.values())
+        records = csv.reader(f)
+        records_list = [record for record in records]
+        header = records_list[0]
+        for i in range(1, len(header)):
+            header[i] = header[i].title()
+        records_list.pop(0)
+        ui.print_table(records_list, header)
