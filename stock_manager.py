@@ -17,11 +17,11 @@ while True:
         data.add_item(name, quantity, value)
         print("{} {} added!".format(quantity, name))
     elif usr_inpt.lower() == "remove":
-        id = input("Type the product's ID: ")
-        item = data.read_record(id)
+        item_id = input("Type the product's ID: ")
+        item = data.read_record(item_id)
         decision = input("Are you sure you want to remove {} from stock? ".format(item["NAME"].title()))
         if decision.lower() in ['yes', 'y']:
-            data.remove_item(id)
+            data.remove_item(item_id)
             print("Item removed.")
         else:
             print("Oof, that was close.")

@@ -1,17 +1,18 @@
-stock_path = "./data/stock.csv"
+import csv
+STOCK_PATH = "./data/stock.csv"
 
-def read_record(id, path = stock_path):
+def read_record(item_id, path = STOCK_PATH):
     with open(path) as f:
         records = f.readlines()
         output = {}
-        record = records[int(id) - 1].split(',')
+        record = records[int(item_id) - 1].split(',')
         output["ID"] = record[0]
         output["NAME"] = record[1]
         output["QUANTITY"] = record[2]
         output["VALUE"] = record[3]
         return output
 
-def read_stock(path = stock_path):
+def read_stock(path = STOCK_PATH):
     with open(path) as f:
         records = f.readlines()
         output = {}
@@ -20,7 +21,7 @@ def read_stock(path = stock_path):
             output[vals[1]] = int(vals[2])
         return output
 
-def read_values(path = stock_path):
+def read_values(path = STOCK_PATH):
     with open(path) as f:
         records = f.readlines()
         output = {}
@@ -29,22 +30,22 @@ def read_values(path = stock_path):
             output[vals[1]] = float(vals[3])
         return output
 
-def add_item(name, quantity, value, path = stock_path):
+def add_item(name, quantity, value, path = STOCK_PATH):
     with open(path, "r+") as f:
         records = f.readlines()
 
         if len(records) < 9:
-            id = "0" + str(len(records) + 1)
+            item_id = "0" + str(len(records) + 1)
         else:
-            id = str(len(records) + 1)
+            item_id = str(len(records) + 1)
 
-        record = [id, name.upper(), quantity, value, "\n"]
+        record = [item_id, name.upper(), quantity, value, "\n"]
         f.write(",".join(record))
 
-def remove_item(id, path = stock_path):
+def remove_item(item_id, path = STOCK_PATH):
     with open(path, "r+") as f:
         records = f.readlines()
-        records.pop(int(id) - 1)
+        records.pop(int(item_id) - 1)
 
         f.seek(0)
         f.truncate()
@@ -52,10 +53,10 @@ def remove_item(id, path = stock_path):
         for record in records:
             f.write(record)
 
-def edit_item(path = stock_path):
+def edit_item(path = STOCK_PATH):
     return None
 
-def show(path = stock_path):
+def show(path = STOCK_PATH):
     with open(path, "r+") as f:
         records = f.readlines()
         print("ID || NAME || QUANTITY || VALUE")
