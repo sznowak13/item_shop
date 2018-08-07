@@ -34,7 +34,7 @@ def print_table(table, title_list):
             max_lens[i] = max(len_list)
         len_list = []
     # Top
-    draw_the_line(max_lens, "o", "'")
+    draw_the_line(max_lens)
     # Headers
     fill_row_with(title_list, max_lens)
     # Body
@@ -44,7 +44,7 @@ def print_table(table, title_list):
         print(" |")
         fill_row_with(table[i], max_lens)
     # Bottom
-    draw_the_line(max_lens, "*", "=")
+    draw_the_line(max_lens)
     # your goes code
 
 
