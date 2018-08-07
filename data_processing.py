@@ -9,20 +9,18 @@ def read_record(item_id, path = STOCK_PATH):
 
 def read_stock(path = STOCK_PATH):
     with open(path) as f:
-        records = f.readlines()
+        records = [record for record in csv.DictReader(f)]
         output = {}
-        for i in range(len(records)):
-            vals = records[i].split(',')
-            output[vals[1]] = int(vals[2])
+        for record in records:
+            output[record["NAME"]] = int(record["QUANTITY"])
         return output
 
 def read_values(path = STOCK_PATH):
     with open(path) as f:
-        records = f.readlines()
+        records = [record for record in csv.DictReader(f)]
         output = {}
-        for i in range(len(records)):
-            vals = records[i].split(',')
-            output[vals[1]] = float(vals[3])
+        for record in records:
+            output[record["NAME"]] = float(record["VALUE"])
         return output
 
 def add_item(name, quantity, value, path = STOCK_PATH):
