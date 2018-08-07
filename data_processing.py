@@ -3,10 +3,12 @@ STOCK_PATH = "./data/stock.csv"
 FIELDNAMES = ["ID", "NAME", "QUANTITY", "VALUE"]
 
 def read_record(item_id, path = STOCK_PATH):
+    """ Returns record from the csv file with given ID, where ID is
+    simply a line of a file with that record. Note that if ID == 0
+    the function returns the last item.
+    """
     with open(path) as f:
-        records = csv.DictReader(f)
-        records_list = [record for record in records]
-        return records_list[int(item_id) - 1]
+        return [record for record in csv.DictReader(f)][int(item_id) - 1]
 
 def read_stock(path = STOCK_PATH):
     with open(path) as f:
