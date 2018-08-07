@@ -1,7 +1,7 @@
 import data_processing as data
 
 def print_help():
-    print("Command list:\n-Add\n-Remove (DANGEROUS! IN PROGRESS!)\n-Edit (NOT AVAILABLE)\n-Show (IN PROGRESS)\n-Help\n-Quit")
+    print("Command list:\n-Add\n-Remove (DANGEROUS! IN PROGRESS!)\n-Edit (NOT AVAILABLE)\n-Show\n-Help\n-Quit")
 
 print("Hi! Welcome to Stock Manager. What do you wanna do?")
 usr_inpt = input("# ")
@@ -11,7 +11,7 @@ while True:
         print("Goodbye!")
         break
     elif usr_inpt.lower() == "add":
-        values = []
+        values = [] # list of the values to be passed to the dictionary
         max_id = int(data.read_record(0)["ID"]) # reads the maximal ID so far
         if max_id < 9:
             values.append("0" + str(max_id + 1))
@@ -20,6 +20,7 @@ while True:
         values.append(input("Product name: ").upper())
         values.append(input("Quantity: "))
         values.append(input("Value: "))
+        # unpacking the values to the proper dictionary with keys from FIELDNAMES constant
         item_dict = {title: values[data.FIELDNAMES.index(title)] for title in data.FIELDNAMES}
         data.add_item(item_dict)
         print("{} {} added!".format(values[2], values[1].title()))
