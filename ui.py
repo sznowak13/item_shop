@@ -38,7 +38,7 @@ def print_table(table, title_list):
     for i in range(col_num):
         for j in range(row_num):
             len_list.append(len(table[j][i]) + ALIGN_PADDING)
-        if max_lens[i] < max(len_list):
+        if row_num != 0 and max_lens[i] < max(len_list):
             max_lens[i] = max(len_list)
         len_list = []
     # Top
