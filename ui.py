@@ -1,4 +1,6 @@
-""" User Interface (UI) module """
+""" User Interface (UI) module
+Original author: Szymon Nowak
+Modified by: Maciej B. Nowak """
 
 
 def print_table(table, title_list):
@@ -94,7 +96,7 @@ def print_result(result, label):
             print('{}: {}'.format(i, result[i]))
 
 
-def print_menu(title, list_options, exit_message):
+def print_menu(title, list_options, exit_message = None):
     """
     Displays a menu. Sample output:
         Main menu:
@@ -117,14 +119,15 @@ def print_menu(title, list_options, exit_message):
 
     # your code
 
-    print("\n" + title + ":")
+    print(title + ":")
 
     for i in range(len(list_options)):
-        formatted_options = ("({}) {}".format(i + 1, list_options[i]))
+        formatted_options = ("(>) {}".format(list_options[i]))
         print("{:>{}}".format(formatted_options, len(formatted_options) + 1))
 
-    formatted_exit_option = ("({}) {}".format(0,exit_message))
-    print("{:>{}}".format(formatted_exit_option, len(formatted_exit_option) + 1))
+    if exit_message != None:
+        formatted_exit_option = ("({}) {}".format(0,exit_message))
+        print("{:>{}}".format(formatted_exit_option, len(formatted_exit_option) + 1))
 
 
 def get_inputs(list_labels, title):
