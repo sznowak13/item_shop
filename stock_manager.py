@@ -12,11 +12,8 @@ while True:
         break
     elif usr_inpt.lower() == "add":
         values = [] # list of the values to be passed to the dictionary
-        max_id = int(data.read_record()["ID"]) # reads the maximal ID so far
-        if max_id < 9:
-            values.append("0" + str(max_id + 1))
-        else:
-            values.append(str(max_id + 1))
+        # max_id = int(data.read_record()["ID"]) # reads the maximal ID so far
+        values.append(data.get_id())
         values.append(input("Product name: ").upper())
         values.append(input("Quantity: "))
         values.append(input("Value: "))
@@ -27,12 +24,15 @@ while True:
     elif usr_inpt.lower() == "remove":
         item_id = input("Type the product's ID: ")
         item = data.read_record(item_id)
-        decision = input("Are you sure you want to remove {} from stock? ".format(item["NAME"].title()))
-        if decision.lower() in ['yes', 'y']:
-            data.remove_item(item_id)
-            print("Item removed.")
+        if item == None:
+            print("No item with ID '{}'".format(item_id))
         else:
-            print("Oof, that was close.")
+            decision = input("Are you sure you want to remove {} from stock? ".format(item["NAME"].title()))
+            if decision.lower() in ['yes', 'y']:
+                data.remove_item(item_id)
+                print("Item removed.")
+            else:
+                print("Oof, that was close.")
     elif usr_inpt.lower() == "edit":
         data.edit_item() # TO DO
     elif usr_inpt.lower() == "show":
