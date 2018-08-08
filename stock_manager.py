@@ -1,9 +1,8 @@
 import data_processing as data
+import ui
+COMMAND_LIST = ['Add', 'Remove', 'Edit', 'Show', 'Help', 'Quit']
 
-def print_help():
-    print("Command list:\n-Add\n-Remove (PROBABLY WORKS)\n-Edit\n-Show\n-Help\n-Quit")
-
-print("Hi! Welcome to Stock Manager. What do you wanna do?")
+print("Hi! Welcome to Stock Manager. For instructions type 'help'.")
 usr_inpt = input("# ")
 
 while True:
@@ -27,7 +26,7 @@ while True:
         if item == None:
             print("No item with ID '{}'".format(item_id))
         else:
-            decision = input("Are you sure you want to remove {} from stock? ".format(item["NAME"].title()))
+            decision = input("Are you sure you want to permanently remove {} from stock? ".format(item["NAME"].title()))
             if decision.lower() in ['yes', 'y']:
                 data.remove_item(item_id)
                 print("Item removed.")
@@ -53,7 +52,7 @@ while True:
     elif usr_inpt.lower() == "show":
         data.show()
     elif usr_inpt.lower() == "help":
-        print_help()
+        ui.print_menu("List of supported commands", COMMAND_LIST)
     else:
         print("Unknown command '{}', try again.".format(usr_inpt))
     usr_inpt = input("# ")
