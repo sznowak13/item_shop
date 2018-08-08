@@ -40,14 +40,19 @@ def add_item(item_dict, path = STOCK_PATH):
 
 def remove_item(item_id, path = STOCK_PATH):
     with open(path, "r+") as f:
-        records = f.readlines()
-        records.pop(int(item_id))
+        fieldnames = FIELDNAMES;
+        records = [record for record in csv.DictReader(f)]
+        records.insert(0, {key: key for key in fieldnames})
+        for record in records:
+            if record["ID"] == item_id:
+                records.pop(records.index(record))
 
         f.seek(0)
         f.truncate()
 
         for record in records:
-            f.write(record)
+            add_item(record)
+
 
 def edit_item(path = STOCK_PATH):
     return None

@@ -1,7 +1,7 @@
 import data_processing as data
 
 def print_help():
-    print("Command list:\n-Add\n-Remove (UNDER CONSTRUCTION)\n-Edit (NOT AVAILABLE)\n-Show\n-Help\n-Quit")
+    print("Command list:\n-Add\n-Remove (PROBABLY WORKS)\n-Edit (NOT AVAILABLE)\n-Show\n-Help\n-Quit")
 
 print("Hi! Welcome to Stock Manager. What do you wanna do?")
 usr_inpt = input("# ")
