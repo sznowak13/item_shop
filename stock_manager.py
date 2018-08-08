@@ -1,7 +1,7 @@
 import data_processing as data
 
 def print_help():
-    print("Command list:\n-Add\n-Remove (PROBABLY WORKS)\n-Edit (NOT AVAILABLE)\n-Show\n-Help\n-Quit")
+    print("Command list:\n-Add\n-Remove (PROBABLY WORKS)\n-Edit\n-Show\n-Help\n-Quit")
 
 print("Hi! Welcome to Stock Manager. What do you wanna do?")
 usr_inpt = input("# ")
@@ -41,7 +41,7 @@ while True:
         else:
             updated_name = input("Change the name ({}): ".format(item["NAME"].title()))
             if updated_name != "":
-                item["NAME"] = updated_name
+                item["NAME"] = updated_name.upper()
             updated_quantity = input("Change the quantity ({}): ".format(item["QUANTITY"]))
             if updated_quantity != "":
                 item["QUANTITY"] = updated_quantity
