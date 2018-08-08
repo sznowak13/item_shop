@@ -1,9 +1,20 @@
-import csv, ui
+import csv, ui, random
 STOCK_PATH = "./data/stock.csv"
 FIELDNAMES = ["ID", "NAME", "QUANTITY", "VALUE"]
+ID_LENGTH = 6
 
-def get_id():
-    return "66"
+def get_id(path = STOCK_PATH):
+    """ Generates random, unique, ID_LENGTH-digit ID string (supports 10^6 unique products)"""
+    with open(path) as f:
+        records = csv.DictReader(f)
+        all_ids = [record["ID"] for record in records]
+        new_id = ""
+        while new_id == "" or new_id in all_ids:
+            new_id = ""
+            for i in range(ID_LENGTH):
+                new_id += str(random.randrange(0, 10))
+        return new_id
+
 
 def read_record(item_id = 0, path = STOCK_PATH):
     """ Returns record from the csv file with given ID.
