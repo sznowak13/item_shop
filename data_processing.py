@@ -1,6 +1,8 @@
 """ A module for manipulation of the csv file containing some kind of stock """
 
-import csv, ui, random
+from tempfile import NamedTemporaryFile as nametempfile
+from random import randrange
+import csv, ui, shutil
 STOCK_PATH = "./data/stock.csv"
 FIELDNAMES = ["ID", "NAME", "QUANTITY", "VALUE"]
 ID_LENGTH = 6
@@ -14,7 +16,7 @@ def get_id(path = STOCK_PATH):
         while new_id == "" or new_id in all_ids:
             new_id = ""
             for i in range(ID_LENGTH):
-                new_id += str(random.randrange(0, 10))
+                new_id += str(randrange(0, 10))
         return new_id
 
 def read_record(item_id = 0, path = STOCK_PATH):
@@ -73,8 +75,18 @@ def remove_item(item_id, path = STOCK_PATH):
             add_item(record)
 
 
-def edit_item(path = STOCK_PATH):
-    return None
+def edit_item(item, path = STOCK_PATH):
+    """ Updates a record with item's ID to the values of given item dictionary """
+    tempfile = nametempfile(mode = 'w', delete = False)
+    with open(path, 'r') as csvfile, tempfile:
+        reader = csv.DictReader(csvfile, fieldnames = FIELDNAMES)
+        writer = csv.DictWriter(tempfile, fieldnames = FIELDNAMES, lineterminator = '\n')
+        for record in reader:
+            if record["ID"] == item["ID"]:
+                record["NAME"], record["QUANTITY"], record["VALUE"] = item["NAME"], item["QUANTITY"], item["VALUE"]
+            record = {"ID": record["ID"], "NAME": record["NAME"], "QUANTITY": record["QUANTITY"], "VALUE": record["VALUE"]}
+            writer.writerow(record)
+    shutil.move(tempfile.name, path)
 
 def show(path = STOCK_PATH):
     """ Displays a fancy looking table of every item in the given stock """

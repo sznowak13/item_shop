@@ -34,7 +34,22 @@ while True:
             else:
                 print("Oof, that was close.")
     elif usr_inpt.lower() == "edit":
-        data.edit_item() # TO DO
+        item_id = input("Type the product's ID: ")
+        item = data.read_record(item_id)
+        if item == None:
+            print("No item with ID '{}'".format(item_id))
+        else:
+            updated_name = input("Change the name ({}): ".format(item["NAME"].title()))
+            if updated_name != "":
+                item["NAME"] = updated_name
+            updated_quantity = input("Change the quantity ({}): ".format(item["QUANTITY"]))
+            if updated_quantity != "":
+                item["QUANTITY"] = updated_quantity
+            updated_value = input("Change the value ({}): ".format(item["VALUE"]))
+            if updated_value != "":
+                item["VALUE"] = updated_value
+            data.edit_item(item)
+            print("Item updated!")
     elif usr_inpt.lower() == "show":
         data.show()
     elif usr_inpt.lower() == "help":
