@@ -2,13 +2,19 @@ import csv, ui
 STOCK_PATH = "./data/stock.csv"
 FIELDNAMES = ["ID", "NAME", "QUANTITY", "VALUE"]
 
-def read_record(item_id, path = STOCK_PATH):
-    """ Returns record from the csv file with given ID, where ID is
-    simply a line of a file with that record. Note that if ID == 0
-    the function returns the last item.
+def read_record(item_id = 0, path = STOCK_PATH):
+    """ Returns record from the csv file with given ID.
+    If no arguments are passed, returns the last item from the file.
+    If no match is found in the file, returns Null.
     """
     with open(path) as f:
-        return [record for record in csv.DictReader(f)][int(item_id) - 1]
+        records = csv.DictReader(f)
+        if item_id == 0:
+            return [record for record in records][-1]
+        for record in records:
+            if record["ID"] == item_id:
+                return record
+        return Null
 
 def read_stock(path = STOCK_PATH):
     with open(path) as f:
