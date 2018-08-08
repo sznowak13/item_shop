@@ -3,16 +3,20 @@
 
 def print_table(table, title_list):
     """
-    Prints table with data.
+    Prints table with data, where the first column is always enumerating all the rows.
 
     Example:
-        /-----------------------------------\
-        |   id   |      title     |  type   |
-        |--------|----------------|---------|
-        |   0    | Counter strike |    fps  |
-        |--------|----------------|---------|
-        |   1    |       fo       |    fps  |
-        \-----------------------------------/
+        #-------------------------------------------------#
+        |  No.  |  Id  |   Name   |  Quantity  |  Value   |
+        |-------|------|----------|------------|--------- |
+        |   1   |  01  |   Food   |     3      |    5     |
+        |-------|------|----------|------------|--------- |
+        |   2   |  02  |  Drinks  |     10     |    2     |
+        |-------|------|----------|------------|--------- |
+        |   3   |  03  |   Fags   |     1      |   10     |
+        |-------|------|----------|------------|--------- |
+        |   4   |  04  |  Imbir   |     1      |   0.5    |
+        #-------------------------------------------------#
 
     Args:
         table (list): list of lists - table to display
@@ -21,6 +25,10 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+    # adding the column enumerating all the rows, by default
+    title_list.insert(0, "No.")
+    for i in range(1, len(table) + 1):
+        table[i - 1].insert(0, str(i))
     ALIGN_PADDING = 4
     col_num = len(title_list)
     row_num = len(table)
@@ -50,7 +58,7 @@ def print_table(table, title_list):
 
 def fill_row_with(row, max_lens):
     for i in range(len(row)):
-        print("|{0:^{1}}".format(row[i], max_lens[i]), end='')
+        print("|{0:^{1}}".format(row[i].title(), max_lens[i]), end='') # because the csv's formatting is always uppercase
     print(" |")
 
 
