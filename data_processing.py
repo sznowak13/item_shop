@@ -84,7 +84,6 @@ def edit_item(item, path = STOCK_PATH):
         for record in reader:
             if record["ID"] == item["ID"]:
                 record["NAME"], record["QUANTITY"], record["VALUE"] = item["NAME"], item["QUANTITY"], item["VALUE"]
-            record = {"ID": record["ID"], "NAME": record["NAME"], "QUANTITY": record["QUANTITY"], "VALUE": record["VALUE"]}
             writer.writerow(record)
     shutil.move(tempfile.name, path)
 
