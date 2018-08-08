@@ -7,10 +7,11 @@ usr_inpt = input("# ")
 
 while True:
     usr_inpt = usr_inpt.split(' ')
-    if usr_inpt[0].lower() in ['quit', 'exit', 'q']:
+    command = usr_inpt[0]
+    if command.lower() in ['quit', 'exit', 'q']:
         print("Goodbye!")
         break
-    elif usr_inpt[0].lower() == "add":
+    elif command.lower() == "add":
         values = [] # list of the values to be passed to the dictionary
         # max_id = int(data.read_record()["ID"]) # reads the maximal ID so far
         values.append(data.get_id())
@@ -21,7 +22,7 @@ while True:
         item_dict = {title: values[data.FIELDNAMES.index(title)] for title in data.FIELDNAMES}
         data.add_item(item_dict)
         print("{} {} added!".format(values[2], values[1].title()))
-    elif usr_inpt[0].lower() == "remove":
+    elif command.lower() == "remove":
         item_id = input("Type the product's ID: ")
         item = data.read_record(item_id)
         if item == None:
@@ -33,7 +34,7 @@ while True:
                 print("Item removed.")
             else:
                 print("Oof, that was close.")
-    elif usr_inpt[0].lower() == "edit":
+    elif command.lower() == "edit":
         item_id = input("Type the product's ID: ")
         item = data.read_record(item_id)
         if item == None:
@@ -50,25 +51,26 @@ while True:
                 item["VALUE"] = updated_value
             data.edit_item(item)
             print("Item updated!")
-    elif usr_inpt[0].lower() == "show":
+    elif command.lower() == "show":
         data.show()
-    elif usr_inpt[0].lower() == "help":
+    elif command.lower() == "help":
         if len(usr_inpt) > 1 and usr_inpt[1].title() in COMMAND_LIST:
-            if usr_inpt[1].lower() == "add":
+            argument = usr_inpt[1]
+            if argument.lower() == "add":
                 print(data.add_item.__doc__)
-            if usr_inpt[1].lower() == "remove":
+            if argument.lower() == "remove":
                 print(data.remove_item.__doc__)
-            if usr_inpt[1].lower() == "edit":
+            if argument.lower() == "edit":
                 print(data.edit_item.__doc__)
-            if usr_inpt[1].lower() == "show":
+            if argument.lower() == "show":
                 print(data.show.__doc__)
-            if usr_inpt[1].lower() == "help":
+            if argument.lower() == "help":
                 print("Really?")
-            if usr_inpt[1].lower() == "quit":
+            if argument.lower() == "quit":
                 print("Quits the program, duh. Also, typing 'q' or 'exit' have the same effect.")
         else:
             ui.print_menu("List of supported commands", COMMAND_LIST)
             print("To see help for specified command, type 'help COMMAND'")
     else:
-        print("Unknown command '{}', try again.".format(usr_inpt[0][0]))
+        print("Unknown command '{}', try again.".format(command[0]))
     usr_inpt = input("# ")
