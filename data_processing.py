@@ -78,7 +78,7 @@ def remove_item(item_id, path = STOCK_PATH):
 def edit_item(item, path = STOCK_PATH):
     """ Updates a record with item's ID to the values of given item dictionary """
     tempfile = nametempfile(mode = 'w', delete = False)
-    with open(path, 'r') as csvfile, tempfile:
+    with open(path) as csvfile, tempfile:
         reader = csv.DictReader(csvfile, fieldnames = FIELDNAMES)
         writer = csv.DictWriter(tempfile, fieldnames = FIELDNAMES, lineterminator = '\n')
         for record in reader:

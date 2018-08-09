@@ -13,7 +13,6 @@ while True:
         break
     elif command.lower() == "add":
         values = [] # list of the values to be passed to the dictionary
-        # max_id = int(data.read_record()["ID"]) # reads the maximal ID so far
         values.append(data.get_id())
         values.append(input("Product name: ").upper())
         values.append(input("Quantity: "))
@@ -72,5 +71,5 @@ while True:
             ui.print_menu("List of supported commands", COMMAND_LIST)
             print("To see help for specified command, type 'help COMMAND'")
     else:
-        print("Unknown command '{}', try again.".format(command[0]))
+        print("Unknown command '{}', try again.".format(command))
     usr_inpt = input("# ")
