@@ -2,6 +2,29 @@ import data_processing as data
 import ui
 COMMAND_LIST = ['Add', 'Remove', 'Edit', 'Show', 'Help', 'Quit']
 
+def get_int(prompt):
+    output = input(prompt)
+    while output != "":
+        try:
+            int(output)
+            break
+        except:
+            print("You have to pass an integer value.")
+            output = input(prompt)
+    return output
+
+def get_float(prompt):
+    output = input(prompt)
+    while output != "":
+        try:
+            float(output)
+            break
+        except:
+            print("You have to pass a floating point value.")
+            output = input(prompt)
+    return output
+
+
 print("Hi! Welcome to Stock Manager. For instructions type 'help'.")
 usr_inpt = input("# ")
 
@@ -15,8 +38,12 @@ while True:
         values = [] # list of the values to be passed to the dictionary
         values.append(data.get_id())
         values.append(input("Product name: ").upper())
-        values.append(input("Quantity: "))
-        values.append(input("Value: "))
+        quantity = get_int("Quantity: ")
+        if quantity == "": values.append(0)
+        else: values.append(quantity)
+        value = get_float("Value: ")
+        if value == "": values.append(0)
+        else: values.append(value)
         # unpacking the values to the proper dictionary with keys from FIELDNAMES constant
         item_dict = {title: values[data.FIELDNAMES.index(title)] for title in data.FIELDNAMES}
         data.add_item(item_dict)
@@ -42,10 +69,10 @@ while True:
             updated_name = input("Change the name ({}): ".format(item["NAME"].title()))
             if updated_name != "":
                 item["NAME"] = updated_name.upper()
-            updated_quantity = input("Change the quantity ({}): ".format(item["QUANTITY"]))
+            updated_quantity = get_int("Change the quantity ({}): ".format(item["QUANTITY"]))
             if updated_quantity != "":
                 item["QUANTITY"] = updated_quantity
-            updated_value = input("Change the value ({}): ".format(item["VALUE"]))
+            updated_value = get_float("Change the value ({}): ".format(item["VALUE"]))
             if updated_value != "":
                 item["VALUE"] = updated_value
             data.edit_item(item)
@@ -53,20 +80,22 @@ while True:
     elif command.lower() == "show":
         data.show()
     elif command.lower() == "help":
-        if len(usr_inpt) > 1 and usr_inpt[1].title() in COMMAND_LIST:
+        if len(usr_inpt) > 1:
             argument = usr_inpt[1]
             if argument.lower() == "add":
                 print(data.add_item.__doc__)
-            if argument.lower() == "remove":
+            elif argument.lower() == "remove":
                 print(data.remove_item.__doc__)
-            if argument.lower() == "edit":
+            elif argument.lower() == "edit":
                 print(data.edit_item.__doc__)
-            if argument.lower() == "show":
+            elif argument.lower() == "show":
                 print(data.show.__doc__)
-            if argument.lower() == "help":
+            elif argument.lower() == "help":
                 print("Really?")
-            if argument.lower() == "quit":
+            elif argument.lower() == "quit":
                 print("Quits the program, duh. Also, typing 'q' or 'exit' have the same effect.")
+            else:
+                print("Unknown argument for command 'help' - '{}'".format(argument))
         else:
             ui.print_menu("List of supported commands", COMMAND_LIST)
             print("To see help for specified command, type 'help COMMAND'")
