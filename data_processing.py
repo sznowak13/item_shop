@@ -12,11 +12,11 @@ def get_id(path = STOCK_PATH):
     with open(path) as f:
         records = csv.DictReader(f)
         all_ids = [record["ID"] for record in records]
-        new_id = ""
-        while new_id == "" or new_id in all_ids:
-            new_id = ""
-            for i in range(ID_LENGTH):
-                new_id += str(randrange(0, 10))
+        unique = False
+        while not unique:
+            new_id = "".join([str(randrange(0, 10)) for i in range(ID_LENGTH)])
+            if new_id not in all_ids:
+                unique = True
         return new_id
 
 def read_record(item_id = 0, path = STOCK_PATH):
