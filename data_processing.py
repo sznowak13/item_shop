@@ -3,9 +3,27 @@
 from tempfile import NamedTemporaryFile as nametempfile
 from random import randrange
 import csv, ui, shutil
+import os
+
 STOCK_PATH = "./data/stock.csv"
 FIELDNAMES = ["ID", "NAME", "QUANTITY", "VALUE"]
 ID_LENGTH = 6
+
+def setup_stock():
+    """
+    Checks if the stock file exists in the data folder.
+    If not, creates a new stock file with no items and displays an error.
+    """
+    
+    if not os.path.exists(STOCK_PATH):
+        data_dir = os.path.dirname(STOCK_PATH)
+        os.makedirs(data_dir)
+        with open(STOCK_PATH, 'w') as f:
+            writer = csv.DictWriter(f, fieldnames = FIELDNAMES, lineterminator = '\n')
+            writer.writeheader()
+        ui.print_error_message("Cannot find a file, mght be deleted or moved.")
+        ui.print_result("Created an empty datafile", "Handled")
+
 
 def get_id(path = STOCK_PATH):
     """ Generates random, unique, ID_LENGTH-digit ID string (supports 10^6 unique products)"""
