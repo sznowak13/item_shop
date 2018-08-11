@@ -26,6 +26,7 @@ def get_float(prompt):
 
 
 def start():
+    data.setup_stock()
     print("Hi! Welcome to Stock Manager. For instructions type 'help'.")
     usr_inpt = input("# ")
 
