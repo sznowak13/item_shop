@@ -1,5 +1,5 @@
 """ User Interface (UI) module
-Original author: Szymon Nowak
+Original author: Szymon Nowak, Kamil Woś, Barbara Bochińska
 Modified by: Maciej B. Nowak """
 
 
