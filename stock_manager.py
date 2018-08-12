@@ -2,23 +2,31 @@ import data_processing as data
 import ui
 COMMAND_LIST = ['Add', 'Remove', 'Edit', 'Show', 'Help', 'Quit']
 
-def get_int(prompt):
+def get_quantity(prompt):
     output = input(prompt)
-    while output != "":
+    correct = False
+    while output and not correct:
         try:
-            int(output)
-            break
+            if int(output) < 0:
+                print("The quantity has to be a positive number.")
+                output = input(prompt)
+                continue
+            correct = True
         except:
             print("You have to pass an integer value.")
             output = input(prompt)
     return output
 
-def get_float(prompt):
+def get_value(prompt):
     output = input(prompt)
-    while output != "":
+    correct = False
+    while output and not correct:
         try:
-            float(output)
-            break
+            if float(output) < 0:
+                print("The value has to be a positive number.")
+                output = input(prompt)
+                continue
+            correct = True
         except:
             print("You have to pass a floating point value.")
             output = input(prompt)
@@ -40,10 +48,10 @@ def start():
             values = [] # list of the values to be passed to the dictionary
             values.append(data.get_id())
             values.append(input("Product name: ").upper())
-            quantity = get_int("Quantity: ")
+            quantity = get_quantity("Quantity: ")
             if quantity == "": values.append(0)
             else: values.append(quantity)
-            value = get_float("Value: ")
+            value = get_value("Value: ")
             if value == "": values.append(0)
             else: values.append(value)
             # unpacking the values to the proper dictionary with keys from FIELDNAMES constant
@@ -69,14 +77,11 @@ def start():
                 print("No item with ID '{}'".format(item_id))
             else:
                 updated_name = input("Change the name ({}): ".format(item["NAME"].title()))
-                if updated_name != "":
-                    item["NAME"] = updated_name.upper()
-                updated_quantity = get_int("Change the quantity ({}): ".format(item["QUANTITY"]))
-                if updated_quantity != "":
-                    item["QUANTITY"] = updated_quantity
-                updated_value = get_float("Change the value ({}): ".format(item["VALUE"]))
-                if updated_value != "":
-                    item["VALUE"] = updated_value
+                if updated_name != "": item["NAME"] = updated_name.upper()
+                updated_quantity = get_quantity("Change the quantity ({}): ".format(item["QUANTITY"]))
+                if updated_quantity != "": item["QUANTITY"] = updated_quantity
+                updated_value = get_value("Change the value ({}): ".format(item["VALUE"]))
+                if updated_value != "": item["VALUE"] = updated_value
                 data.edit_item(item)
                 print("Item updated!")
         elif command.lower() == "show":
