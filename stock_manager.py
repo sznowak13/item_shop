@@ -1,6 +1,6 @@
 import data_processing as data
 import ui
-COMMAND_LIST = ['Add', 'Remove', 'Edit', 'Show', 'Help', 'Quit']
+COMMAND_DICT = {'Add': data.add_item, 'Remove': data.remove_item, 'Edit': data.edit_item, 'Show': data.show, 'Help': help, 'Quit': quit}
 
 def get_quantity(prompt):
     output = input(prompt)
@@ -32,18 +32,23 @@ def get_value(prompt):
             output = input(prompt)
     return output
 
+def quit():
+    """Quits the program, duh. Also, typing 'q' or 'exit' have the same effect."""
+    return False
 
-def start():
+def main():
+    running = True
     data.setup_stock()
     print("Hi! Welcome to Stock Manager. For instructions type 'help'.")
     usr_inpt = input("# ")
 
-    while True:
+    while running:
         usr_inpt = usr_inpt.split(' ')
         command = usr_inpt[0]
         if command.lower() in ['quit', 'exit', 'q']:
             print("Goodbye!")
-            break
+            running = quit()
+            continue
         elif command.lower() == "add":
             values = [] # list of the values to be passed to the dictionary
             values.append(data.get_id())
@@ -88,23 +93,15 @@ def start():
             data.show()
         elif command.lower() == "help":
             if len(usr_inpt) > 1:
-                argument = usr_inpt[1]
-                if argument.lower() == "add":
-                    print(data.add_item.__doc__)
-                elif argument.lower() == "remove":
-                    print(data.remove_item.__doc__)
-                elif argument.lower() == "edit":
-                    print(data.edit_item.__doc__)
-                elif argument.lower() == "show":
-                    print(data.show.__doc__)
-                elif argument.lower() == "help":
+                argument = usr_inpt[1].title()
+                if argument == "Help":
                     print("Really?")
-                elif argument.lower() == "quit":
-                    print("Quits the program, duh. Also, typing 'q' or 'exit' have the same effect.")
+                elif argument in list(COMMAND_DICT.keys()):
+                    print(COMMAND_DICT[argument].__doc__)
                 else:
                     print("Unknown argument for command 'help' - '{}'".format(argument))
             else:
-                ui.print_menu("List of supported commands", COMMAND_LIST)
+                ui.print_menu("List of supported commands", list(COMMAND_DICT.keys()))
                 print("To see help for specified command, type 'help COMMAND'")
         else:
             print("Unknown command '{}', try again.".format(command))
@@ -112,4 +109,4 @@ def start():
 
 
 if __name__ == "__main__":
-    start()
+    main()
