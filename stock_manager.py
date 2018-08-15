@@ -1,6 +1,5 @@
 import data_processing as data
 import ui
-COMMAND_DICT = {'Add': data.add_item, 'Remove': data.remove_item, 'Edit': data.edit_item, 'Show': data.show, 'Help': help, 'Quit': quit}
 
 def get_quantity(prompt):
     output = input(prompt)
@@ -32,9 +31,12 @@ def get_value(prompt):
             output = input(prompt)
     return output
 
-def quit():
-    """Quits the program, duh. Also, typing 'q' or 'exit' have the same effect."""
+def quit_program():
+    """ Quits the program, duh. Also, typing 'q' or 'exit' have the same effect."""
     return False
+
+
+COMMAND_DICT = {'Add': data.add_item, 'Remove': data.remove_item, 'Edit': data.edit_item, 'Show': data.show, 'Help': help, 'Quit': quit_program}
 
 def main():
     running = True
@@ -47,7 +49,7 @@ def main():
         command = usr_inpt[0]
         if command.lower() in ['quit', 'exit', 'q']:
             print("Goodbye!")
-            running = quit()
+            running = quit_program()
             continue
         elif command.lower() == "add":
             values = [] # list of the values to be passed to the dictionary
