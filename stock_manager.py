@@ -36,7 +36,12 @@ def quit_program():
     return False
 
 
-COMMAND_DICT = {'Add': data.add_item, 'Remove': data.remove_item, 'Edit': data.edit_item, 'Show': data.show, 'Help': help, 'Quit': quit_program}
+COMMAND_DICT = {'Add': data.add_item,
+                'Remove': data.remove_item,
+                'Edit': data.edit_item,
+                'Show': data.show,
+                'Help': help,
+                'Quit': quit_program}
 
 def main():
     running = True
